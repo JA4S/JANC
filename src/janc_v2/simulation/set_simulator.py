@@ -193,6 +193,7 @@ class H5Saver:
                 arr_cpu = np.array(arr.block_until_ready())  # 拉回CPU
                 grp.create_dataset(name, data=arr_cpu, compression="gzip")
             self.file.flush()
+        save_fcn(key,arrays)
 
     def list_snapshots(self):
         "返回所有存储的时间步名称"
@@ -531,6 +532,7 @@ def AMR_Simulator(simulation_config):
         blk_data = jnp.array([jnp.concatenate([U,aux],axis=0)])
         return blk_data
     return jit(advance_func_amr,static_argnames='level'),jit(advance_func_base)
+
 
 
 
