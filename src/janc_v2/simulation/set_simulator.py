@@ -15,6 +15,7 @@ from tqdm import tqdm
 import h5py
 import numpy as np
 from pathlib import Path
+from collections import defaultdict
 
     
 def set_rhs(dim,reaction_config,source_config=None,is_parallel=False,is_amr=False):
@@ -530,6 +531,7 @@ def AMR_Simulator(simulation_config):
         blk_data = jnp.array([jnp.concatenate([U,aux],axis=0)])
         return blk_data
     return jit(advance_func_amr,static_argnames='level'),jit(advance_func_base)
+
 
 
 
